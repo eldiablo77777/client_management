@@ -1,19 +1,8 @@
 ---
-import "../styles/global.css";
-import DashboardApp from "../components/DashboardApp";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { DashboardPageEntry } from "../components/pages/PageEntries";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
-    <title>Dashboard | Client Management</title>
-  </head>
-
-  <body class="min-h-screen bg-slate-100 text-slate-900">
-    <DashboardApp client:load />
-  </body>
-</html>
+<BaseLayout title="Dashboard | Pipeline">
+  <DashboardPageEntry client:load />
+</BaseLayout>

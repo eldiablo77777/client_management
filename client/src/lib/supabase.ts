@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = "https://eoaomelozzwkukwrrztf.supabase.co";
-const supabaseKey = "sb_publishable_MMsRMegXGQdlNJvTDvipsQ_hzDe2Ruk".trim();
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl) {
   throw new Error("PUBLIC_SUPABASE_URL is missing.");

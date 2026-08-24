@@ -2,10 +2,27 @@ import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { supabase } from "../lib/supabase";
 import type { Client, ClientFormData } from "../types/client";
 
-const emptyForm: ClientFormData = {
+type DashboardFormData = ClientFormData & {
+  called: boolean;
+  interested: boolean;
+  requirements: string;
+};
+
+const emptyForm: DashboardFormData = {
   company_name: "",
   contact_person: "",
   phone_number: "",
+  email: "",
+  website: "",
+  address: "",
+  status: "New",
+  priority: "Medium",
+  lead_source: "",
+  assigned_to: "",
+  project_value: "",
+  expected_close_date: "",
+  follow_up_date: "",
+  follow_up_time: "",
   called: false,
   interested: false,
   requirements: "",
@@ -13,7 +30,7 @@ const emptyForm: ClientFormData = {
 
 export default function DashboardApp() {
   const [clients, setClients] = useState<Client[]>([]);
-  const [formData, setFormData] = useState<ClientFormData>(emptyForm);
+  const [formData, setFormData] = useState<DashboardFormData>(emptyForm);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [email, setEmail] = useState("");
   const [search, setSearch] = useState("");
@@ -62,9 +79,9 @@ export default function DashboardApp() {
     setLoading(false);
   }
 
-  function updateField<K extends keyof ClientFormData>(
+  function updateField<K extends keyof DashboardFormData>(
     field: K,
-    value: ClientFormData[K],
+    value: DashboardFormData[K],
   ) {
     setFormData((current) => ({
       ...current,
@@ -141,9 +158,22 @@ export default function DashboardApp() {
     setEditingId(client.id);
 
     setFormData({
+      ...emptyForm,
       company_name: client.company_name,
       contact_person: client.contact_person ?? "",
       phone_number: client.phone_number,
+      email: client.email ?? "",
+      website: client.website ?? "",
+      address: client.address ?? "",
+      status: client.status ?? "New",
+      priority: client.priority ?? "Medium",
+      lead_source: client.lead_source ?? "",
+      assigned_to: client.assigned_to ?? "",
+      project_value:
+        client.project_value != null ? String(client.project_value) : "",
+      expected_close_date: client.expected_close_date ?? "",
+      follow_up_date: client.follow_up_date ?? "",
+      follow_up_time: client.follow_up_time ?? "",
       called: client.called,
       interested: client.interested,
       requirements: client.requirements ?? "",
