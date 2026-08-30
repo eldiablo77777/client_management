@@ -1,8 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { DashboardPageEntry } from "../components/pages/PageEntries";
+import DashboardApp from "../components/DashboardApp";
 ---
 
-<BaseLayout title="Dashboard | Pipeline">
-  <DashboardPageEntry client:load />
+<BaseLayout title="Dashboard | Client Tracker">
+  <DashboardApp client:load />
 </BaseLayout>
